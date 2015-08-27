@@ -1,0 +1,3 @@
+86345980: Registered.  The registration date is used to determine when post-registration maintenance documents are due.
+86346005: Application has been published for opposition.  The opposition period begins on the date of publication.
+86346042: Application has been published for opposition.  The opposition period begins on the date of publication.

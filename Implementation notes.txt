@@ -1,0 +1,39 @@
+# Requirements for trademark monitoring code
+
+Every week
+	List of serial numbers to get one line status. Report only if changed.
+		This URL will download the latest status:
+			http://tsdr.uspto.gov/statusview/sn86589518
+			curl -s http://tsdr.uspto.gov/statusview/sn86345980 | grep -B 1 -A 5 ">Status:" | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'
+		Get the last-modified file; grep for the SN; diff the line.
+		http://tsdr.uspto.gov/#caseNumber=76714163&caseType=SERIAL_NO&searchType=statusSearch
+		
+	List of new marks in TMOG that match a keyword. Any class
+		This URL will retrieve the list of new cases published for opposition:		
+		https://tmog.uspto.gov/eOG/search/all/info.json?searchBy=toast&searchIn=MARK_TEXT%2COWNER%2CMARK_DESC%2CGS_DESC%2CADD_STM%2CDOCKET_NR%2CSERIAL_NR%2CREG_NR&issues=2015-08-25&pubReason=OPPOSITION&limit=20&orderBy=SERIAL_NR&order=ASC
+
+		Cannot select more than five issues at a time.
+		
+http://tmsearch.uspto.gov/bin/showfield?f=toc&state=4808%3A8646nl.1.1&p_search=searchstr&BackReference=&p_L=100&p_plural=yes&p_s_PARA1=20150825&p_tagrepl%7E%3A=PARA1%24PO&expr=PARA1+and+PARA2&p_s_PARA2=Toast&p_tagrepl%7E%3A=PARA2%24ALL&a_default=search&f=toc&state=4808%3A8646nl.1.1&a_search=Submit+Query
+		
+			Need another search for marks registered
+		Inputs: what day was Tuesday?; the search query term
+		Outputs: HTML page
+			Parse to get numbers
+			Download G&S class
+		
+
+One time
+	List of all marks that match
+	List of all our status
+
+Data model
+	Text file by date
+	Store in Dropbox
+	One line per match
+
+Environment
+	Crontab
+	Unix/Perl/node
+	Mac textutil, to convert to .doc - No longer needed because HTML is used
+	IFTTT to email it to me every week
