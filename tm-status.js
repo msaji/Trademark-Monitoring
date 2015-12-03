@@ -26,7 +26,7 @@ snList = snList.split('\n');
 todaysDate = child_process.execSync('date "+%G-%m-%d"');
 todaysDate = todaysDate.toString().trim();
 
-// Get results for each serial numbers.
+// Get results for each serial number.
 statusesOutput = [];
 for (i=0; i<snList.length; i++) {
 	snList[i] = snList[i].replace(/#.*/, ""); // Skip comments
