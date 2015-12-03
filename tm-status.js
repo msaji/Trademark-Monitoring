@@ -54,7 +54,9 @@ for (i=0; i<snList.length; i++) {
 		fs.writeFileSync(STATUSPATH + "/" + snList[i] + "-" + todaysDate + ".txt", curlResults);
 	}
 	
-	
+	if (statusesOutput.length == 0) {
+		statusesOutput.push("No tracked trademark applications had changes this week.\n");
+	}
 }
 
 fs.writeFileSync(REPORTPATH + "/TM-status-" + todaysDate + ".txt", statusesOutput.join(""));
