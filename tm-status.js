@@ -54,6 +54,7 @@ for (i=0; i<snList.length; i++) {
 		fs.writeFileSync(STATUSPATH + "/" + snList[i] + "-" + todaysDate + ".txt", curlResults);
 	}
 	
+	statusesOutput.push("\n"); // Ensure that a report appears even when there is no trademark this week
 	
 }
 
