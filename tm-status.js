@@ -35,23 +35,26 @@ for (i=0; i<snList.length; i++) {
 		continue;
 	}
 	
-	var curlResults = child_process.execSync("curl -s '" + "http://tsdr.uspto.gov/statusview/sn" + snList[i] + "' | grep -B 1 -A 5 '>Status:' | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'");
+	curlResults = child_process.execSync("curl -s '" + "http://tsdr.uspto.gov/statusview/sn" + snList[i] + "' | grep -B 1 -A 5 '>Status:' | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'");
+	curlResults = curlResults.toString('utf8');
 
 	// Get the latest prior status by comparing filenames; put it in statusList[0]
 	statusList = fs.readdirSync(STATUSPATH + "/");
 	for (j=0; j<statusList.length; j++) {
-		if (statusList[0].search(/snList[i]/)) {
+		if (statusList[j].search(snList[i]) != -1) {
 			statusList[0] = ((statusList[j] >= statusList[0]) ? statusList[j] : statusList[0]);
 		}
 	}
 
 	// Push onto reporting list if the status has changed
-	if (statusList[0] != curlResults) {
+	if (fs.readFileSync(STATUSPATH + "/" + statusList[0], 'utf8') != curlResults) {
+		console.log(statusList[0] + " has changed");
 		statusesOutput.push(snList[i] + ": " + curlResults);
 		// Save the latest status only if changed
 		fs.writeFileSync(STATUSPATH + "/" + snList[i] + "-" + todaysDate + ".txt", curlResults);
 	}
-
+	
+	
 }
 
 fs.writeFileSync(REPORTPATH + "/TM-status-" + todaysDate + ".txt", statusesOutput.join(""));
