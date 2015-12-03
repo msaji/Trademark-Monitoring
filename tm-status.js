@@ -7,7 +7,7 @@
 // curl -s http://tsdr.uspto.gov/statusview/sn86345980 | grep -B 1 -A 5 ">Status:" | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'
 // Get the last-modified file; diff the line.
 
-var snList, todaysDate;
+var snList, docketNumList = [], todaysDate;
 var i, j, statusList, statusesOutput;
 
 var INPUTFILE = "sn-list";
@@ -34,6 +34,11 @@ for (i=0; i<snList.length; i++) {
 	if (snList[i].length < 1) { 
 		continue;
 	}
+
+	// sn-list syntax: docket number using A-Z, numbers, dashes; tab; TM serial number
+	docketNumList[i] = snList[i];
+	docketNumList[i] = docketNumList[i].replace(/\t.*/, "");
+	snList[i] = snList[i].replace(/[-A-Z0-9]*\t/, "");
 	
 	curlResults = child_process.execSync("curl -s '" + "http://tsdr.uspto.gov/statusview/sn" + snList[i] + "' | grep -B 1 -A 5 '>Status:' | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'");
 	curlResults = curlResults.toString('utf8');
@@ -49,7 +54,7 @@ for (i=0; i<snList.length; i++) {
 	// Push onto reporting list if the status has changed
 	if (fs.readFileSync(STATUSPATH + "/" + statusList[0], 'utf8') != curlResults) {
 		console.log(statusList[0] + " has changed");
-		statusesOutput.push(snList[i] + ": " + curlResults);
+		statusesOutput.push(docketNumList[i] + " (" + snList[i] + "): " + curlResults);
 		// Save the latest status only if changed
 		fs.writeFileSync(STATUSPATH + "/" + snList[i] + "-" + todaysDate + ".txt", curlResults);
 	}

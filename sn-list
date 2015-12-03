@@ -1,6 +1,7 @@
 # SN-list
 # List of USPTO trademark serial numbers to monitor.
+# Syntax: docket number using A-Z, numbers, dashes; tab; TM serial number
 
-86345980
-86346005
-86346042
+AAA-10001USTM	86345980
+AAA-10002USTM	86346005
+AAA-10003USTM	86346042
