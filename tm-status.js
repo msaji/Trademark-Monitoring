@@ -38,10 +38,24 @@ for (i=0; i<snList.length; i++) {
 	// sn-list syntax: docket number using A-Z, numbers, dashes; tab; TM serial number
 	docketNumList[i] = snList[i];
 	docketNumList[i] = docketNumList[i].replace(/\t.*/, "");
+	// delete docket number
 	snList[i] = snList[i].replace(/[-A-Z0-9]*\t/, "");
 	
-	curlResults = child_process.execSync("curl -s '" + "http://tsdr.uspto.gov/statusview/sn" + snList[i] + "' | grep -B 1 -A 5 '>Status:' | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'");
-	curlResults = curlResults.toString('utf8');
+	// check if snList[i] is a US application or a ROMARIN application
+	if ((snList[i].charAt(0) == '7') || (snList[i].charAt(0) == '8')) { // US application
+		// one line status for USPTO TM apps
+		curlResults = child_process.execSync("curl -s '" + "http://tsdr.uspto.gov/statusview/sn" + snList[i] + "' | grep -B 1 -A 5 '>Status:' | tail -n 3 | head -n 1 | sed -E -e 's/[^-A-Za-z\., ]//g' -e 's/^ +//g'");
+		curlResults = curlResults.toString('utf8');
+	} else if (snList[i].charAt(0) == '1') { // ROMARIN application
+		curlResults = child_process.execSync("curl -L -s '" + "http://www.wipo.int/romarin/searchAccess.xhtml?act=on&del=no&pen=no&searchString=+%28%2FMARKGR%2FINTREGN+contains+++" + snList[i] +"%29+' | sed 's/>/>\
+		/g' | grep -A 2 \"lbl-colps\" ");
+		curlResults = curlResults.toString('utf8');
+		curlResults = curlResults.replace(/<\/?[a-z]+[^>]*>/g,"");
+		curlResults = curlResults.replace(/\s*\n\s*/g,"; ");
+		curlResults = curlResults.replace(/\s:/g,":");
+		curlResults = curlResults.replace(/^\s+/g,"");
+		curlResults = curlResults.replace(/([^;]+); ([^;]+); /g,"$1; ");
+	}
 
 	// Get the latest prior status by comparing filenames; put it in statusList[0]
 	statusList = fs.readdirSync(STATUSPATH + "/");

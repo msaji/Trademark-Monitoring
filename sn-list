@@ -1,7 +1,8 @@
 # SN-list
-# List of USPTO trademark serial numbers to monitor.
+# List of USPTO (7… or 8…) and ROMARIN (1…) serial numbers to monitor.
 # Syntax: docket number using A-Z, numbers, dashes; tab; TM serial number
 
 AAA-10001USTM	86345980
 AAA-10002USTM	86346005
 AAA-10003USTM	86346042
+AAA-10001WOTM	1000000
