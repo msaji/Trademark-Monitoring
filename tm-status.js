@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// 1. tm-status.js. Given a list of US TM serial numbers to watch,
+// 1. tm-status.js. Given a list of US or WIPO (Madrid) TM serial numbers to watch,
 //    spits out a one-line status for each SN into a "Statuses"
 //    directory. The list is kept in the text file "sn-list".
 

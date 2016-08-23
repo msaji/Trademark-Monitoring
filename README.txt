@@ -1,12 +1,12 @@
 README
 
-Bare-bones trademark monitoring system. USPTO only.
+Bare-bones trademark monitoring system. USPTO and WIPO (Madrid).
 
 Two scripts are included in this project:
 
 1. tm-status.js.
-	Given a list of US TM serial numbers to watch, spits out a
-	one-line status for each SN into a "Statuses" directory. A
+	Given a list of US or WIPO TM serial numbers to watch, spits out
+	a one-line status for each SN into a "Statuses" directory. A
 	report with today’s date is placed in “Status-Reports” with
 	the name “TM-sttaus-<date>.txt”.
 
@@ -24,4 +24,4 @@ Dropbox, IFTTT, osx textutil, etc. to send the results to
 yourself via email every week. Node v.0.11 or higher is
 required for the execSync methods.
 
-Michael Saji saji@saji.org August 26, 2015
+Michael Saji saji@saji.org
