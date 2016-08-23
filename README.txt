@@ -8,7 +8,7 @@ Two scripts are included in this project:
 	Given a list of US or WIPO TM serial numbers to watch, spits out
 	a one-line status for each SN into a "Statuses" directory. A
 	report with today’s date is placed in “Status-Reports” with
-	the name “TM-sttaus-<date>.txt”.
+	the name “TM-status-<date>.txt”.
 
 2. tm-monitor.js. 
 	Given a list of query strings in “monitor-queries”, searches
