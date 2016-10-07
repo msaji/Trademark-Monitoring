@@ -22,9 +22,16 @@ var child_process = require('child_process');
 queriesArray = fs.readFileSync(INPUTFILE, 'utf-8');
 queriesArray = queriesArray.split('\n');
 
-// Get date of most recent TMOG, which comes out Tuesdays
-tmogDate = child_process.execSync('date -v-tuesday "+%G-%m-%d"');
+// Check to see if tmogDate was handed in as a command line argument
+if (process.argv.indexOf("--tmogDate") != -1) {
+	// Set tmogDate to the handed-in argument
+	tmogDate = process.argv[process.argv.indexOf("--tmogDate")+1];
+} else {
+	// Get date of most recent TMOG, which comes out Tuesdays
+	tmogDate = child_process.execSync('date -v-tuesday "+%G-%m-%d"');
+}
 tmogDate = tmogDate.toString().trim();
+tmogDate = tmogDate.replace(/[^-0-9]/gi, '');
 
 // Get results for each query string.
 jsonResultsArray = [];
