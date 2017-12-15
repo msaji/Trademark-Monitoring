@@ -24,8 +24,8 @@ var child_process = require('child_process');
 
 //	console.log(jsonResultsArray[i].cases[0].goodsServices); … jsonResultsArray[i].cases[j].seriaNum 
 
-var queryMatchedDesc = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(jsonResultsArray[i].cases[j].markDescr)) return " <a href=\"#footnotes\" title=\"Your query term matched the verbal description of this mark. Click the TM serial no. for more details.\" class=\"matchedDesc footnote\">[1]</a> ";} // if no match, fail silently
-var queryMatchedGoods = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(JSON.stringify(jsonResultsArray[i].cases[j].goodsServices))) return " <a href=\"#footnotes\" title=\"Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.\" class=\"matchedGoods footnote\">[2]</a> ";} // if no match, fail silently
+var queryMatchedDesc = function(i,j) {var re = new RegExp(queriesArray[i],'i'); if (re.test(jsonResultsArray[i].cases[j].markDescr)) return " <a href=\"#footnotes\" title=\"Your query term matched the verbal description of this mark. Click the TM serial no. for more details.\" class=\"matchedDesc footnote\">[1]</a> ";} // if no match, fail silently
+var queryMatchedGoods = function(i,j) {var re = new RegExp(queriesArray[i],'i'); if (re.test(JSON.stringify(jsonResultsArray[i].cases[j].goodsServices))) return " <a href=\"#footnotes\" title=\"Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.\" class=\"matchedGoods footnote\">[2]</a> ";} // if no match, fail silently
 
 // Open data file and create list of strings.
 // Note that this array is not validated or cleaned.
