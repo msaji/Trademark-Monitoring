@@ -60,7 +60,7 @@ for (i=0; i<queriesArray.length; i++) {
 		tmogOutput[i] +=
 			"<tr>" + 
 			"<td class='query'>" + queriesArray[i] + "</td>" +
-			"<td class='seriaNum'>" + "<a href='http://tsdr.uspto.gov/#caseNumber=" + jsonResultsArray[i].cases[j].seriaNum + "&caseType=SERIAL_NO&searchType=statusSearch'>" + jsonResultsArray[i].cases[j].seriaNum + "</a></td>" +
+			"<td class='serialNum'>" + "<a href='http://tsdr.uspto.gov/#caseNumber=" + jsonResultsArray[i].cases[j].serialNum + "&caseType=SERIAL_NO&searchType=statusSearch'>" + jsonResultsArray[i].cases[j].serialNum + "</a></td>" +
 			"<td class='publicationDate'>" + jsonResultsArray[i].cases[j].publicationDate + "</td>" +
 			"<td class='markText'>" + jsonResultsArray[i].cases[j].markText + "</td>" +
 			"<td class='currentOwner'>" + jsonResultsArray[i].cases[j].currentOwner + "</td>" + 
