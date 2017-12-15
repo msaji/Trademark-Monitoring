@@ -24,8 +24,8 @@ var child_process = require('child_process');
 
 //	console.log(jsonResultsArray[i].cases[0].goodsServices); … jsonResultsArray[i].cases[j].seriaNum 
 
-var queryMatchedDesc = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(jsonResultsArray[i].cases[j].markDescr)) return " <a href=\"#\" title=\"Your query term matched the verbal description of this mark. Click the TM serial no. for more details.\" class=\"matchedDesc footnote\">[1]</a> ";} // if no match, fail silently
-var queryMatchedGoods = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(JSON.stringify(jsonResultsArray[i].cases[j].goodsServices))) return " <a href=\"#\" title=\"Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.\" class=\"matchedGoods footnote\">[2]</a> ";} // if no match, fail silently
+var queryMatchedDesc = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(jsonResultsArray[i].cases[j].markDescr)) return " <a href=\"#footnotes\" title=\"Your query term matched the verbal description of this mark. Click the TM serial no. for more details.\" class=\"matchedDesc footnote\">[1]</a> ";} // if no match, fail silently
+var queryMatchedGoods = function(i,j) {var re = new RegExp(queriesArray[i]); if (re.test(JSON.stringify(jsonResultsArray[i].cases[j].goodsServices))) return " <a href=\"#footnotes\" title=\"Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.\" class=\"matchedGoods footnote\">[2]</a> ";} // if no match, fail silently
 
 // Open data file and create list of strings.
 // Note that this array is not validated or cleaned.
@@ -88,7 +88,7 @@ for (i=0; i<queriesArray.length; i++) {
 // Fill output buffer
 tmogOutputStr = "<!DOCTYPE html> <html> <head> <style type='text/css'> table { font-family: Helvetica, Arial, sans-serif; color: #333; border-width: 1px; border-style: solid; border-color: #777; border-collapse: collapse; border-padding: 15px; } table th { background-color: #ddd; } table td { background-color: #fff; padding: 10px; } table .footnote { font-size: smaller; vertical-align: super; }</style> </head> <body> <h1>Trademark Gazette publications as of " + tmogDate + "</h1> <table border='1'> <tr> <th>Query</th> <th>TM serial no.</th> <th>Date of publication</th> <th>Trademark text</th> <th>Current owner</th> </tr> ";
 for (i=0; i<queriesArray.length; i++) { if (tmogOutput[i]) { tmogOutputStr += tmogOutput[i]; } }
-tmogOutputStr += "</table> <p>[1]: Your query term matched the verbal description of this mark. Click the TM serial no. for more details.</p><p>[2]: Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.</p> </body> </html>";
+tmogOutputStr += "</table> <p>[1]: Your query term matched the verbal description of this mark. Click the TM serial no. for more details.</p><p>[2]: Your query term matched the goods and services listing of this mark. Click the TM serial no. for more details.</p> <a name=\"footnotes\">&nbsp;</a> </body> </html>";
 tmogOutputStr = tmogOutputStr.replace(/undefined/gm, "");
 
 // Output to file
