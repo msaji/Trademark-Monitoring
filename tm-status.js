@@ -48,7 +48,7 @@ for (i=0; i<snList.length; i++) {
 		curlResults = curlResults.toString('utf8');
 	} else if (snList[i].charAt(0) == '1') { // ROMARIN application
 		curlResults = child_process.execSync("curl -L -s '" + "http://www.wipo.int/romarin/searchAccess.xhtml?act=on&del=no&pen=no&searchString=+%28%2FMARKGR%2FINTREGN+contains+++" + snList[i] +"%29+' | sed 's/>/>\
-		/g' | grep -A 2 \"lbl-colps\" ");
+		/g' | grep -A 2 \"lbl-colps\" " || true);
 		curlResults = curlResults.toString('utf8');
 		curlResults = curlResults.replace(/<\/?[a-z]+[^>]*>/g,"");
 		curlResults = curlResults.replace(/\s*\n\s*/g,"; ");
